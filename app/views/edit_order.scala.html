@@ -1,0 +1,18 @@
+@(orderForm: Form[Orders])
+@import helper._
+@main("Create new") {
+
+    @form(routes.Application.saveOrder()) {
+
+        @inputText(orderForm("id"), '_label -> "", 'style -> "display : none")
+        @inputDate(orderForm("date"), '_label -> "", '_label -> "date")
+        @inputText(orderForm("amount"), 'size -> 30, '_label -> "amount")
+        @select(orderForm("vin"), options(Orders.options()))
+
+
+
+        <input type="submit" value="Подтвердить" name="confirm"/>
+        <input type="button" value="Отмена" name="cancel" onclick="window.location='/orders';"/>
+    }
+
+}

@@ -1,0 +1,45 @@
+@(users: List[User])
+@import helper._
+@main("List of fields") {
+  <input type="submit" id="redir" value="Add field"
+  onclick="window.location='/users/new';">
+
+  <table>
+    <thead>
+      <tr>
+        <td>id</td>
+        <td>firstName</td>
+        <td>lastName</td>
+        <td>birthDate</td>
+        <td>address</td>
+        <td>phone</td>
+        <td>email</td>
+        <td>delete</td>
+        <td>edit</td>
+      </tr>
+    </thead>
+    <tbody>
+    @for(user <- users) {
+      <tr>
+        <td>@user.id</td>
+        <td>@user.firstName</td>
+        <td>@user.lastName</td>
+        <td>@user.birthDate</td>
+        <td>@user.address</td>
+        <td>@user.phone</td>
+        <td>@user.email</td>
+        <td>
+          <a href="@routes.Application.deleteUser(user.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
+        </td>
+
+        <td>
+          <a href="@routes.Application.editUser(user.id)"><i>edit</i></a>
+        </td>
+
+      </tr>
+    }
+    </tbody>
+  </table>
+
+  <a href="@routes.Application.newUser()">Create new</a>
+}

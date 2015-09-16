@@ -1,0 +1,39 @@
+@(orders: List[Orders])
+@import helper._
+@main("List of fields") {
+  <input type="submit" id="redir" value="Add field"
+  onclick="window.location='/orders/new';">
+
+  <table>
+    <thead>
+      <tr>
+        <td>id</td>
+        <td>date</td>
+        <td>amount</td>
+        <td>vin</td>
+        <td>delete</td>
+        <td>edit</td>
+      </tr>
+    </thead>
+    <tbody>
+    @for(order <- orders) {
+      <tr>
+        <td>@order.id</td>
+        <td>@order.date</td>
+        <td>@order.amount</td>
+        <td>@order.vin</td>
+        <td>
+          <a href="@routes.Application.deleteOrder(order.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
+        </td>
+
+        <td>
+          <a href="@routes.Application.editOrder(order.id)"><i>edit</i></a>
+        </td>
+
+      </tr>
+    }
+    </tbody>
+  </table>
+
+  <a href="@routes.Application.newOrder()">Create new</a>
+}

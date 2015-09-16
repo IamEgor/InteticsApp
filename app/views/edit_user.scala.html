@@ -1,0 +1,24 @@
+@(userForm: Form[User])
+@import helper._
+
+@*
+@implicitField = @{ FieldConstructor(my_field_constructor.f) }
+*@
+@main("Create new") {
+
+    @form(routes.Application.saveUser()) {
+
+        @inputText(userForm("id"), '_label -> "", 'style -> "display : none")
+        @inputText(userForm("firstName"), 'size -> 30, '_label -> "firstName")
+        @inputText(userForm("lastName"), 'size -> 30, '_label -> "lastName")
+        @inputDate(userForm("birthDate"), 'size -> 30, '_label -> "birthDate")
+        @inputText(userForm("address"), 'size -> 30, '_label -> "address")
+        @inputText(userForm("phone"), 'size -> 30, '_label -> "phone")
+        @inputText(userForm("email"), 'size -> 30, '_label -> "email")
+
+
+        <input type="submit" value="Подтвердить" name="confirm"/>
+        <input type="button" value="Отмена" name="cancel" onclick="window.location='/users';"/>
+    }
+
+}
