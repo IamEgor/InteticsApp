@@ -3,6 +3,8 @@ package controllers;
 import models.Car;
 import models.Orders;
 import models.User;
+import play.Routes;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.*;
 import play.Logger;
@@ -10,147 +12,72 @@ import play.Logger;
 import views.html.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(index.render("Your new application is ready."));
-    }
-
-
-    public static Result getUsers() {
-
-        List<User> users = User.finder.all();
-        return ok(views.html.users.render(users));
-    }
-
-    public static Result newUser() {
+        //return ok(index.render("Your new application is ready."));
 
         Form<User> userForm = Form.form(User.class);
-        return ok(views.html.edit_user.render(userForm));
+        return ok(views.html.edit_unreg_user.render(userForm));
     }
 
-    public static Result saveUser() {
 
-        Form<User> userForm = Form.form(User.class).bindFromRequest();
 
-        if(userForm.hasErrors())
-            return badRequest(views.html.edit_user.render(userForm));
-        else {
-            User user = userForm.get();
+    public static Result isUserExist() {
 
-            if (user.id != null) {
-                User existingUser = User.finder.byId(user.id);
-                existingUser.updateFields(user);
-                user = existingUser;
+        DynamicForm requestData = Form.form().bindFromRequest();
+
+        Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String[] firstName = values.get("firstName");
+        String[] lastName = values.get("lastName");
+
+            String s = "Don't exist";
+            if(User.isUserExist(firstName[0], lastName[0])){
+                s = "exist";
             }
 
-            user.save();
 
-            return redirect(routes.Application.getUsers());
-        }
+
+            return redirect(routes.Application.test(s));
+
     }
 
-    public static Result editUser(Long id) {
 
-        User row = User.finder.byId(id);
-        Form<User> userForm = Form.form(User.class).fill(row);
-        return ok(views.html.edit_user.render(userForm));
-    }
-
-    public static Result deleteUser(Long id) {
-        User.finder.byId(id).delete();
-        return redirect(routes.Application.getUsers());
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public static Result getOrders() {
-
-        List<Orders> orders = Orders.finder.all();
-        return ok(views.html.orders.render(orders));
-    }
-
-    public static Result newOrder() {
-
-        Form<Orders> orderForm = Form.form(Orders.class);
-        return ok(views.html.edit_order.render(orderForm));
-    }
-
-    public static Result saveOrder() {
-
-        Form<Orders> orderForm = Form.form(Orders.class).bindFromRequest();
-
-        if(orderForm.hasErrors())
-            return badRequest(views.html.edit_order.render(orderForm));
-
-        Orders order = orderForm.get();
-
-        if (order.id != null){
-            Orders existingOrder = Orders.finder.byId(order.id);
-            existingOrder.updateFields(order);
-            order = existingOrder;
-        }
-
-        order.save();
-
-        return redirect(routes.Application.getOrders());
-    }
-
-    public static Result editOrder(Long id) {
-
-        Orders row = Orders.finder.byId(id);
-        Form<Orders> orderForm = Form.form(Orders.class).fill(row);
-        return ok(views.html.edit_order.render(orderForm));
-    }
-
-    public static Result deleteOrder(Long id) {
-        Orders.finder.byId(id).delete();
-        return redirect(routes.Application.getOrders());
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public static Result getCars() {
+    public static Result test(String s) {
+        //return ok(index.render("Your new application is ready."));
 
         List<Car> cars = Car.finder.all();
-        return ok(views.html.cars.render(cars));
+
+        return ok(views.html.ifCarExist.render(cars));
     }
 
-    public static Result newCar() {
+    public static Result javascriptRoutes() {
+        response().setContentType("text/javascript");
+        return ok(
+                Routes.javascriptRouter("jsRoutes",
 
-        Form<Car> carForm = Form.form(Car.class);
-        return ok(views.html.edit_car.render(carForm));
-    }
+                        controllers.routes.javascript.UsersActions.getUsers(),
+                        controllers.routes.javascript.UsersActions.newUser(),
+                        controllers.routes.javascript.UsersActions.saveUser(),
+                        controllers.routes.javascript.UsersActions.editUser(),
+                        controllers.routes.javascript.UsersActions.deleteUser(),
 
-    public static Result saveCar() {
+                        controllers.routes.javascript.CarsActions.getCars(),
+                        controllers.routes.javascript.CarsActions.newCar(),
+                        controllers.routes.javascript.CarsActions.saveCar(),
+                        controllers.routes.javascript.CarsActions.editCar(),
+                        controllers.routes.javascript.CarsActions.deleteCar(),
 
-        Form<Car> carForm = Form.form(Car.class).bindFromRequest();
+                        controllers.routes.javascript.OrdersActions.getOrders(),
+                        controllers.routes.javascript.OrdersActions.newOrder(),
+                        controllers.routes.javascript.OrdersActions.saveOrder(),
+                        controllers.routes.javascript.OrdersActions.editOrder(),
+                        controllers.routes.javascript.OrdersActions.deleteOrder()
 
-        if(carForm.hasErrors())
-            return badRequest(views.html.edit_car.render(carForm));
-
-        Car car = carForm.get();
-
-        if (car.id != null){
-            Car existingOrder = Car.finder.byId(car.id);
-            existingOrder.updateFields(car);
-            car = existingOrder;
-        }
-
-        car.save();
-
-        return redirect(routes.Application.getCars());
-    }
-
-    public static Result editCar(Long id) {
-
-        Car car = Car.finder.byId(id);
-        Form<Car> carForm = Form.form(Car.class).fill(car);
-        return ok(views.html.edit_car.render(carForm));
-    }
-
-    public static Result deleteCar(Long id) {
-        Car.finder.byId(id).delete();
-        return redirect(routes.Application.getCars());
+                )
+        );
     }
 
 }

@@ -10,9 +10,9 @@
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
     </head>
     <body>
-        <a href="@routes.Application.getUsers()">Users(@User.finder.findRowCount())"</a>
-        <a href="@routes.Application.getCars()">Cars(@Car.finder.findRowCount())"</a>
-        <a href="@routes.Application.getOrders()">Orders(@Orders.finder.findRowCount())</a>
+        <a href="@routes.UsersActions.getUsers()">Users(@User.finder.findRowCount())"</a>
+        <a href="@routes.CarsActions.getCars()">Cars(@Car.finder.findRowCount())"</a>
+        <a href="@routes.OrdersActions.getOrders()">Orders(@Orders.finder.findRowCount())</a>
         <hr>
         @content
     </body>

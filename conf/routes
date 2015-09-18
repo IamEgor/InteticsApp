@@ -3,28 +3,38 @@
 # ~~~~
 
 # Home page
-GET         /                        controllers.Application.index
+GET         /                               controllers.Application.index
+POST        /saveOrNot                      controllers.Application.isUserExist()
+GET         /saveOrNotTest                  controllers.Application.test(s : String)
+
+GET         /test                           controllers.TestAction.test()
+
+GET         /users                          controllers.UsersActions.getUsers()
+GET         /users/new                      controllers.UsersActions.newUser()
+POST        /users/save                     controllers.UsersActions.saveUser()
+GET         /users/edit/:id                 controllers.UsersActions.editUser(id : Long)
+GET         /users/delete/:id               controllers.UsersActions.deleteUser(id : Long)
 
 
-GET         /users                   controllers.Application.getUsers()
-GET         /users/new               controllers.Application.newUser()
-POST        /users/save              controllers.Application.saveUser()
-GET         /users/edit/:id          controllers.Application.editUser(id : Long)
-GET         /users/delete/:id        controllers.Application.deleteUser(id : Long)
+GET         /cars                           controllers.CarsActions.getCars()
+GET         /cars/new                       controllers.CarsActions.newCar()
+POST        /cars/save                      controllers.CarsActions.saveCar()
+GET         /cars/edit/:id                  controllers.CarsActions.editCar(id : Long)
+GET         /cars/delete/:id                controllers.CarsActions.deleteCar(id : Long)
 
 
-GET         /cars                  controllers.Application.getCars()
-GET         /cars/new               controllers.Application.newCar()
-POST        /cars/save              controllers.Application.saveCar()
-GET         /cars/edit/:id          controllers.Application.editCar(id : Long)
-GET         /cars/delete/:id        controllers.Application.deleteCar(id : Long)
+GET         /orders                         controllers.OrdersActions.getOrders()
+GET         /orders/new                     controllers.OrdersActions.newOrder()
+POST        /orders/save                    controllers.OrdersActions.saveOrder()
+GET         /orders/edit/:id                controllers.OrdersActions.editOrder(id : Long)
+GET         /orders/delete/:id              controllers.OrdersActions.deleteOrder(id : Long)
 
 
-GET         /orders                   controllers.Application.getOrders()
-GET         /orders/new               controllers.Application.newOrder()
-POST        /orders/save              controllers.Application.saveOrder()
-GET         /orders/edit/:id          controllers.Application.editOrder(id : Long)
-GET         /orders/delete/:id        controllers.Application.deleteOrder(id : Long)
 
+
+
+
+
+GET         /assets/javascripts/routes      controllers.Application.javascriptRoutes()
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file            controllers.Assets.at(path="/public", file)

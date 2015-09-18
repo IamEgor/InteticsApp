@@ -1,13 +1,13 @@
 @(cars: List[Car])
 @import helper._
-@main("List of fields") {
-  <input type="submit" id="redir" value="Add field"
-  onclick="window.location='/cars/new';">
+@main("List of cars") {
 
   <table>
     <thead>
       <tr>
-        <td>id</td>
+        <td>
+          Выбор авто
+        </td>
         <td>make</td>
         <td>model</td>
         <td>year</td>
@@ -19,16 +19,19 @@
     <tbody>
     @for(car <- cars) {
       <tr>
+        <td>
+          <input type="radio" name="radQ3" value="@car.id" id="@car.id"/>
+        </td>
         <td>@car.make</td>
         <td>@car.model</td>
         <td>@car.year</td>
         <td>@car.vin</td>
         <td>
-          <a href="@routes.Application.deleteCar(car.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
+          <a href="@routes.CarsActions.deleteCar(car.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
         </td>
 
         <td>
-          <a href="@routes.Application.editCar(car.id)"><i>edit</i></a>
+          <a href="@routes.CarsActions.editCar(car.id)"><i>edit</i></a>
         </td>
 
       </tr>
@@ -36,5 +39,5 @@
     </tbody>
   </table>
 
-  <a href="@routes.Application.newCar()">Create new</a>
+  <button type="submit" formaction="POST">Далее</button>
 }

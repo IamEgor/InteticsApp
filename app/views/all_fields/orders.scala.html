@@ -1,6 +1,6 @@
 @(orders: List[Orders])
 @import helper._
-@main("List of fields") {
+@main("List of orders") {
   <input type="submit" id="redir" value="Add field"
   onclick="window.location='/orders/new';">
 
@@ -23,11 +23,11 @@
         <td>@order.amount</td>
         <td>@order.vin</td>
         <td>
-          <a href="@routes.Application.deleteOrder(order.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
+          <a href="@routes.OrdersActions.deleteOrder(order.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
         </td>
 
         <td>
-          <a href="@routes.Application.editOrder(order.id)"><i>edit</i></a>
+          <a href="@routes.OrdersActions.editOrder(order.id)"><i>edit</i></a>
         </td>
 
       </tr>
@@ -35,5 +35,5 @@
     </tbody>
   </table>
 
-  <a href="@routes.Application.newOrder()">Create new</a>
+  <a href="@routes.OrdersActions.newOrder()">Create new</a>
 }

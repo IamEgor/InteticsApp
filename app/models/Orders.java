@@ -4,9 +4,7 @@ import play.data.validation.Constraints;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -33,13 +31,8 @@ public class Orders extends Model implements Updatable{
 
     public static Model.Finder<Long, Orders> finder = new Model.Finder<Long, Orders>(Long.class, Orders.class);
 
-    public static Map<String, String> options(){
-        LinkedHashMap<String, String> vals = new LinkedHashMap<String, String>();
-        for (ContactType cType: ContactType.values()) {
-            vals.put(cType.name(), cType.name());
-        }
-        return vals;
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    public Car car;
 
     @Override
     public void updateFields(Model model) {
@@ -47,6 +40,16 @@ public class Orders extends Model implements Updatable{
         this.date = oldOrder.date;
         this.amount = oldOrder.amount;
         this.vin = oldOrder.vin;
+    }
+
+
+
+    public static Map<String, String> options(){
+        LinkedHashMap<String, String> vals = new LinkedHashMap<String, String>();
+        for (ContactType cType: ContactType.values()) {
+            vals.put(cType.name(), cType.name());
+        }
+        return vals;
     }
 
     public enum ContactType {

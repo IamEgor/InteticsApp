@@ -1,11 +1,11 @@
 @(orderForm: Form[Orders])
 @import helper._
-@main("Create new") {
+@main("Create new order") {
 
-    @form(routes.Application.saveOrder()) {
+    @form(routes.OrdersActions.saveOrder()) {
 
         @inputText(orderForm("id"), '_label -> "", 'style -> "display : none")
-        @inputDate(orderForm("date"), '_label -> "", '_label -> "date")
+        @inputDate(orderForm("date"), 'size -> 30, '_label -> "date")
         @inputText(orderForm("amount"), 'size -> 30, '_label -> "amount")
         @select(orderForm("vin"), options(Orders.options()))
 

@@ -2,11 +2,11 @@
 @import helper._
 
 @*
-@implicitField = @{ FieldConstructor(my_field_constructor.f) }
+@implicitField = @{ FieldConstructor(field_constuctors.my_field_constructor.f) }
 *@
-@main("Create new") {
+@main("Create new user") {
 
-    @form(routes.Application.saveUser()) {
+    @form(routes.UsersActions.saveUser()) {
 
         @inputText(userForm("id"), '_label -> "", 'style -> "display : none")
         @inputText(userForm("firstName"), 'size -> 30, '_label -> "firstName")

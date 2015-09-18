@@ -1,13 +1,13 @@
 @(carForm: Form[Car])
 @import helper._
-@main("Create new") {
+@main("Create new car") {
 
-    @form(routes.Application.saveCar()) {
+    @form(routes.CarsActions.saveCar()) {
 
         @inputText(carForm("id"), '_label -> "", 'style -> "display : none")
-        @inputText(carForm("make"), '_label -> "", '_label -> "make")
+        @inputText(carForm("make"), 'size -> 30, '_label -> "make")
         @inputText(carForm("model"), 'size -> 30, '_label -> "model")
-        @inputText(carForm("year"), '_label -> "", '_label -> "year")
+        @inputText(carForm("year"), 'size -> 30, '_label -> "year")
         @inputText(carForm("vin"), 'size -> 30, '_label -> "vin")
 
 

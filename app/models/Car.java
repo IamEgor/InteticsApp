@@ -4,11 +4,11 @@ import play.data.validation.Constraints;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Egor on 16.09.2015.
@@ -33,6 +33,15 @@ public class Car extends Model implements Updatable{
     public int vin;
 
     public static Model.Finder<Long, Car> finder = new Model.Finder<Long, Car>(Long.class, Car.class);
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    public User user;
+    @ManyToOne(cascade = CascadeType.ALL)
+    public UnregUser unregUser;
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "car")
+    public List<Orders> ordersList = new ArrayList<Orders>();;
 
     @Override
     public void updateFields(Model model) {

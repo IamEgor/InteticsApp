@@ -1,6 +1,6 @@
 @(users: List[User])
 @import helper._
-@main("List of fields") {
+@main("List of users") {
   <input type="submit" id="redir" value="Add field"
   onclick="window.location='/users/new';">
 
@@ -29,11 +29,11 @@
         <td>@user.phone</td>
         <td>@user.email</td>
         <td>
-          <a href="@routes.Application.deleteUser(user.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
+          <a href="@routes.UsersActions.deleteUser(user.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
         </td>
 
         <td>
-          <a href="@routes.Application.editUser(user.id)"><i>edit</i></a>
+          <a href="@routes.UsersActions.editUser(user.id)"><i>edit</i></a>
         </td>
 
       </tr>
@@ -41,5 +41,5 @@
     </tbody>
   </table>
 
-  <a href="@routes.Application.newUser()">Create new</a>
+  <a href="@routes.UsersActions.newUser()">Create new</a>
 }

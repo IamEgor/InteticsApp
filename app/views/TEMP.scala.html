@@ -1,0 +1,9 @@
+@(userForm: Form[User], carForm: Form[Car], ordersForm : Form[Orders])
+
+@main("List of fields") {
+
+  @edit_pages.edit_user(userForm)
+  @edit_pages.edit_car(carForm)
+  @edit_pages.edit_order(ordersForm)
+
+}
