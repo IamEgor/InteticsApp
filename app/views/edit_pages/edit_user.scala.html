@@ -8,17 +8,8 @@
 
     @form(routes.UsersActions.saveUser()) {
 
-        @inputText(userForm("id"), '_label -> "", 'style -> "display : none")
-        @inputText(userForm("firstName"), 'size -> 30, '_label -> "firstName")
-        @inputText(userForm("lastName"), 'size -> 30, '_label -> "lastName")
-        @inputDate(userForm("birthDate"), 'size -> 30, '_label -> "birthDate")
-        @inputText(userForm("address"), 'size -> 30, '_label -> "address")
-        @inputText(userForm("phone"), 'size -> 30, '_label -> "phone")
-        @inputText(userForm("email"), 'size -> 30, '_label -> "email")
-
-
-        <input type="submit" value="Подтвердить" name="confirm"/>
-        <input type="button" value="Отмена" name="cancel" onclick="window.location='/users';"/>
+        @edit_pages.BLANK_edit_user(userForm)
+        @some_templates.ok_cancel_btns(routes.UsersActions.getUsers().toString())
     }
 
 }

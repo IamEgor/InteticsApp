@@ -1,43 +1,35 @@
 @(cars: List[Car])
 @import helper._
 @main("List of cars") {
+  @form(routes.Application.postChosenCar()) {
+    <table>
+      <thead>
+        <tr>
+          <td>
+            Выбор авто
+          </td>
+          <td>make</td>
+          <td>model</td>
+          <td>year</td>
+          <td>vin</td>
+        </tr>
+      </thead>
+      <tbody>
+      @for(car <- cars) {
+        <tr>
+          <td>
+            <input type="radio" name="car" value="@car.id" id="@car.id"/>
+          </td>
+          <td>@car.make</td>
+          <td>@car.model</td>
+          <td>@car.year</td>
+          <td>@car.vin</td>
 
-  <table>
-    <thead>
-      <tr>
-        <td>
-          Выбор авто
-        </td>
-        <td>make</td>
-        <td>model</td>
-        <td>year</td>
-        <td>vin</td>
-        <td>delete</td>
-        <td>edit</td>
-      </tr>
-    </thead>
-    <tbody>
-    @for(car <- cars) {
-      <tr>
-        <td>
-          <input type="radio" name="radQ3" value="@car.id" id="@car.id"/>
-        </td>
-        <td>@car.make</td>
-        <td>@car.model</td>
-        <td>@car.year</td>
-        <td>@car.vin</td>
-        <td>
-          <a href="@routes.CarsActions.deleteCar(car.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
-        </td>
+        </tr>
+      }
+      </tbody>
+    </table>
 
-        <td>
-          <a href="@routes.CarsActions.editCar(car.id)"><i>edit</i></a>
-        </td>
-
-      </tr>
-    }
-    </tbody>
-  </table>
-
-  <button type="submit" formaction="POST">Далее</button>
+    <button type="submit">Далее</button>
+  }
 }

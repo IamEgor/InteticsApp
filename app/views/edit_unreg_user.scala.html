@@ -8,8 +8,7 @@
         @inputText(userForm("firstName"), 'size -> 30, '_label -> "firstName")
         @inputText(userForm("lastName"), 'size -> 30, '_label -> "lastName")
 
-        <input type="submit" value="Подтвердить" name="confirm"/>
-        <input type="button" value="Отмена" name="cancel" onclick="window.location='/users';"/>
+        @some_templates.ok_cancel_btns(routes.UsersActions.getUsers().toString())
     }
 
 }

@@ -3,38 +3,38 @@
 # ~~~~
 
 # Home page
-GET         /                               controllers.Application.index
-POST        /saveOrNot                      controllers.Application.isUserExist()
-GET         /saveOrNotTest                  controllers.Application.test(s : String)
+GET         /                                 controllers.Application.index()
+POST        /existUserOrNot                   controllers.Application.isUserExist()
+GET         /newUserIfNotExist                controllers.Application.newUser(firstName, lastName : String)
+POST        /saveNewUser                      controllers.Application.saveNewUser()
 
-GET         /test                           controllers.TestAction.test()
+GET         /getUserCars                      controllers.Application.getUserCars()
+POST        /chosenCar                        controllers.Application.postChosenCar()
 
-GET         /users                          controllers.UsersActions.getUsers()
-GET         /users/new                      controllers.UsersActions.newUser()
-POST        /users/save                     controllers.UsersActions.saveUser()
-GET         /users/edit/:id                 controllers.UsersActions.editUser(id : Long)
-GET         /users/delete/:id               controllers.UsersActions.deleteUser(id : Long)
+GET         /users                            controllers.UsersActions.getUsers()
+GET         /users/new                        controllers.UsersActions.newUser()
+POST        /users/save                       controllers.UsersActions.saveUser()
+GET         /users/edit/:id                   controllers.UsersActions.editUser(id : Long)
+GET         /users/delete/:id                 controllers.UsersActions.deleteUser(id : Long)
 
-
-GET         /cars                           controllers.CarsActions.getCars()
-GET         /cars/new                       controllers.CarsActions.newCar()
-POST        /cars/save                      controllers.CarsActions.saveCar()
-GET         /cars/edit/:id                  controllers.CarsActions.editCar(id : Long)
-GET         /cars/delete/:id                controllers.CarsActions.deleteCar(id : Long)
-
-
-GET         /orders                         controllers.OrdersActions.getOrders()
-GET         /orders/new                     controllers.OrdersActions.newOrder()
-POST        /orders/save                    controllers.OrdersActions.saveOrder()
-GET         /orders/edit/:id                controllers.OrdersActions.editOrder(id : Long)
-GET         /orders/delete/:id              controllers.OrdersActions.deleteOrder(id : Long)
+GET         /cars                             controllers.CarsActions.getCars()
+GET         /cars/new                         controllers.CarsActions.newCar()
+POST        /cars/save                        controllers.CarsActions.saveCar()
+GET         /cars/edit/:id                    controllers.CarsActions.editCar(id : Long)
+GET         /cars/delete/:id                  controllers.CarsActions.deleteCar(id : Long)
 
 
+GET         /orders                           controllers.OrdersActions.getOrders()
+GET         /orders/new                       controllers.OrdersActions.newOrder()
+POST        /orders/save                      controllers.OrdersActions.saveOrder()
+GET         /orders/edit/:id                  controllers.OrdersActions.editOrder(id : Long)
+GET         /orders/delete/:id                controllers.OrdersActions.deleteOrder(id : Long)
+
+
+GET         /test                             controllers.TestAction.test()
 
 
 
-
-
-GET         /assets/javascripts/routes      controllers.Application.javascriptRoutes()
+GET         /assets/javascripts/routes        controllers.Application.javascriptRoutes()
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file            controllers.Assets.at(path="/public", file)
+GET         /assets/*file                     controllers.Assets.at(path="/public", file)
