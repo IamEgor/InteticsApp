@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Car;
 import models.Orders;
 import play.data.Form;
 import play.mvc.Controller;
@@ -23,6 +24,30 @@ public class OrdersActions extends Controller {
         Form<Orders> orderForm = Form.form(Orders.class);
         return ok(views.html.edit_pages.edit_order.render(orderForm));
     }
+//////////////////////////////////////////////////////////////////////
+    public static Result newOrderWithCar(Long carId) {
+
+        Form<Orders> orderForm = Form.form(Orders.class);
+        return ok(views.html.edit_pages.edit_order_with_car.render(orderForm, carId));
+    }
+
+    public static Result saveCarWithUser(long carId) {
+
+        Form<Orders> orderForm = Form.form(Orders.class).bindFromRequest();
+
+
+        if (orderForm.hasErrors())
+            return badRequest(views.html.edit_pages.edit_order_with_car.render(orderForm, carId));
+
+        Orders order = orderForm.get();
+
+        order.car = Car.finder.byId(carId);
+        play.Logger.debug(order.toString());
+        order.save();
+
+        return redirect(routes.Application.getCarOrders(carId));
+    }
+//////////////////////////////////////////////////////////////////////
 
     public static Result saveOrder() {
 

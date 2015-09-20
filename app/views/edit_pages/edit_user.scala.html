@@ -1,10 +1,7 @@
 @(userForm: Form[User])
 @import helper._
-@*
-@implicitField = @{ FieldConstructor(field_constuctors.my_field_constructor.f) }
-*@
-@main("Create new user") {
 
+@main("Create new user") {
     @form(routes.UsersActions.saveUser()) {
         @edit_pages.BLANK_edit_user(userForm)
         @some_templates.ok_cancel_btns(routes.UsersActions.getUsers().toString())

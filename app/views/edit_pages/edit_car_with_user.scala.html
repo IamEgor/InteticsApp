@@ -1,0 +1,10 @@
+@(carForm: Form[Car], usersId : Long)
+@import helper._
+@main("Create new car") {
+
+  @form(routes.CarsActions.saveCarWithUser(usersId)) {
+    @edit_pages.BLANK_edit_car(carForm)
+    @some_templates.ok_cancel_btns(routes.CarsActions.getCars().toString())
+  }
+
+}

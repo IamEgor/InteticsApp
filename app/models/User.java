@@ -1,6 +1,5 @@
 package models;
 
-import play.data.validation.Constraints;
 import play.data.validation.Constraints.Email;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -68,20 +67,20 @@ public class User extends AbstractUser {
         return list;
     }
 
-    public static boolean isUserExist(String firstName, String lastName){
+    public static long isUserExist(String firstName, String lastName){
+
+        long id = -1;
 
         List<User> tasks = finder.where()
                 .ilike("firstName", "%" + firstName + "%")
                 .ilike("lastName", "%" + lastName + "%")
                 .findList();
 
-        if(tasks == null)
-            return false;
-        else
+        if(tasks != null)
             if(tasks.size() > 0)
-                return true;
-            else
-                return false;
+                id = tasks.get(0).id;
+
+        return id;
     }
 
     @Override

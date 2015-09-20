@@ -1,0 +1,27 @@
+@(orders: List[Orders], carId :Long)
+@import helper._
+@main("List of orders") {
+  <table>
+    <thead>
+      <tr>
+        <td>Id</td>
+        <td>Date</td>
+        <td>Amount</td>
+        <td>Status</td>
+      </tr>
+    </thead>
+    <tbody>
+    @for(order <- orders) {
+      <tr>
+        <td>@order.id</td>
+        <td>@order.date</td>
+        <td>@order.amount</td>
+        <td>@order.status</td>
+      </tr>
+    }
+    </tbody>
+  </table>
+  <input type="button" id="redir" value="Add new car"
+  onclick="window.location='@routes.OrdersActions.newOrderWithCar(carId)';">
+  <button type="submit">Далее</button>
+}

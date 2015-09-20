@@ -1,4 +1,4 @@
-@(cars: List[Car])
+@(cars: List[Car], usersId : Long)
 @import helper._
 @main("List of cars") {
   @form(routes.Application.postChosenCar()) {
@@ -11,7 +11,7 @@
           <td>make</td>
           <td>model</td>
           <td>year</td>
-          <td>vin</td>
+          <td>status</td>
         </tr>
       </thead>
       <tbody>
@@ -29,7 +29,8 @@
       }
       </tbody>
     </table>
-
+    <input type="button" id="redir" value="Add new car"
+    onclick="window.location='@routes.CarsActions.newCarWithUser(usersId)';">
     <button type="submit">Далее</button>
   }
 }

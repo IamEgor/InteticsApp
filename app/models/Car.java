@@ -51,4 +51,14 @@ public class Car extends Model implements Updatable{
         this.year = oldCar.year;
         this.vin = oldCar.vin;
     }
+
+    @Override
+    public String toString() {
+        return " Car.class : " +
+                " id = " + id +
+                " make = " + make +
+                " model = " + model +
+                " year = " + year +
+                " status = " + vin;
+    }
 }

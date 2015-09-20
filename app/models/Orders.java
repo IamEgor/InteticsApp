@@ -27,7 +27,7 @@ public class Orders extends Model implements Updatable{
     @Constraints.Max(value = 10000)
     public int amount;
 
-    public ContactType vin;
+    public ContactType status;
 
     public static Model.Finder<Long, Orders> finder = new Model.Finder<Long, Orders>(Long.class, Orders.class);
 
@@ -39,10 +39,17 @@ public class Orders extends Model implements Updatable{
         Orders oldOrder = (Orders) model;
         this.date = oldOrder.date;
         this.amount = oldOrder.amount;
-        this.vin = oldOrder.vin;
+        this.status = oldOrder.status;
     }
 
-
+    @Override
+    public String toString() {
+        return " Orders.class : " +
+                " id = " + id +
+                " date = " + date +
+                " amount = " + amount +
+                " status = " + status;
+    }
 
     public static Map<String, String> options(){
         LinkedHashMap<String, String> vals = new LinkedHashMap<String, String>();

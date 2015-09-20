@@ -10,7 +10,7 @@
         <td>id</td>
         <td>date</td>
         <td>amount</td>
-        <td>vin</td>
+        <td>status</td>
         <td>delete</td>
         <td>edit</td>
       </tr>
@@ -21,7 +21,7 @@
         <td>@order.id</td>
         <td>@order.date</td>
         <td>@order.amount</td>
-        <td>@order.vin</td>
+        <td>@order.status</td>
         <td>
           <a href="@routes.OrdersActions.deleteOrder(order.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
         </td>

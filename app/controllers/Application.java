@@ -11,6 +11,7 @@ import play.Logger;
 
 import views.html.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,27 +21,10 @@ public class Application extends Controller {
         //return ok(index.render("Your new application is ready."));
 
         Form<User> userForm = Form.form(User.class);
-        return ok(views.html.edit_unreg_user.render(userForm));
+        return ok(views.html.first_page.render(userForm));
     }
 
-    public static Result saveNew(User ss) {
 
-        return ok();
-    }
-    public static Result isUserExist() {
-
-        Map<String, String[]> values = request().body().asFormUrlEncoded();
-        String firstName = values.get("firstName")[0];
-        String lastName = values.get("lastName")[0];
-
-        if (!User.isUserExist(firstName, lastName)) {
-            return redirect(routes.Application.newUser(firstName, lastName));
-        }
-
-
-        return redirect(routes.Application.getUserCars());
-
-    }
 
     public static Result newUser(String firstName, String lastName) {
 
@@ -51,39 +35,35 @@ public class Application extends Controller {
 
         Form<User> userForm = Form.form(User.class).fill(user);
 
-        return ok(views.html.noSuchUser.render(userForm, "User"));
-    }
-
-    public static Result saveNewUser(){
-
-        Form<User> userForm = Form.form(User.class).bindFromRequest();
-
-        if(userForm.hasErrors())
-            return badRequest(views.html.noSuchUser.render(userForm, "User"));
-        else {
-            User user = userForm.get();
-            user.save();
-
-            return redirect(routes.Application.getUserCars());
-        }
+        return ok(views.html.noSuchUser.render(userForm));
     }
 
 
-    public static Result getUserCars() {
 
-        List<Car> cars = Car.finder.all();
 
-        return ok(views.html.ifCarExist.render(cars));
+    public static Result getUserCars(long usersId) {
+        Logger.debug("getUserCars - " + usersId);
+        List<Car> cars = new ArrayList<>();
+        if(usersId != -1){
+            cars = User.finder.byId(usersId).carsList;
+
+        for(Car car : cars)
+            Logger.debug(car.toString());}
+
+        return ok(views.html.ifCarExist.render(cars, usersId));
     }
 
-    public static Result postChosenCar() {
 
-        Map<String, String[]> values = request().body().asFormUrlEncoded();
-        String[] car = values.get("car");
+    public static Result getCarOrders(Long carId) {
 
-        Logger.info("car - " + car[0]);
+        List<Orders> orders = new ArrayList<>();
+        if(carId != -1){
+            orders = Car.finder.byId(carId).ordersList;
 
-        return ok();
+            for(Orders order : orders)
+                Logger.debug(order.toString());}
+
+        return ok(views.html.ifOrderExist.render(orders, carId));
     }
 
     public static Result javascriptRoutes() {
@@ -111,6 +91,48 @@ public class Application extends Controller {
 
                 )
         );
+    }
+
+    public static Result isUserExist() {
+
+        Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String firstName = values.get("firstName")[0];
+        String lastName = values.get("lastName")[0];
+
+        long usersId = User.isUserExist(firstName, lastName);
+
+        if (usersId == -1) {
+            return redirect(routes.Application.newUser(firstName, lastName));
+            //return redirect(routes.UserActions.newUser())
+        }
+
+
+        return redirect(routes.Application.getUserCars(usersId));
+
+    }
+
+    public static Result saveNewUser(){
+
+        Form<User> userForm = Form.form(User.class).bindFromRequest();
+
+        if(userForm.hasErrors())
+            return badRequest(views.html.noSuchUser.render(userForm));
+        else {
+            User user = userForm.get();
+            user.save();
+
+            return redirect(routes.Application.getUserCars(-1));
+        }
+    }
+
+    public static Result postChosenCar() {
+
+        Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String[] car = values.get("car");
+
+        Logger.info("car - " + car[0]);
+
+        return ok();
     }
 
 }

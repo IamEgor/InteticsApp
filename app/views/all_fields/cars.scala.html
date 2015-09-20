@@ -2,7 +2,7 @@
 @import helper._
 @main("List of cars") {
   <input type="submit" id="redir" value="Add field"
-  onclick="window.location='/cars/new';">
+  onclick="window.location='@routes.CarsActions.newCar()';">
 
   <table>
     <thead>
@@ -11,7 +11,7 @@
         <td>make</td>
         <td>model</td>
         <td>year</td>
-        <td>vin</td>
+        <td>status</td>
         <td>delete</td>
         <td>edit</td>
       </tr>

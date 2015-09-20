@@ -18,9 +18,9 @@ create table orders (
   id                        bigint not null,
   date                      timestamp,
   amount                    integer,
-  vin                       integer,
+  status                    integer,
   car_id                    bigint,
-  constraint ck_orders_vin check (vin in (0,1,2)),
+  constraint ck_orders_status check (status in (0,1,2)),
   constraint pk_orders primary key (id))
 ;
 

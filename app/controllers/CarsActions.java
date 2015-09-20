@@ -1,11 +1,13 @@
 package controllers;
 
 import models.Car;
+import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Egor on 17.09.2015.
@@ -22,6 +24,30 @@ public class CarsActions extends Controller {
 
         Form<Car> carForm = Form.form(Car.class);
         return ok(views.html.edit_pages.edit_car.render(carForm));
+    }
+
+    public static Result newCarWithUser(long id) {
+
+        Form<Car> carForm = Form.form(Car.class);
+        return ok(views.html.edit_pages.edit_car_with_user.render(carForm, id));
+    }
+
+    public static Result saveCarWithUser(long id) {
+
+        Form<Car> carForm = Form.form(Car.class).bindFromRequest();
+
+
+
+        if(carForm.hasErrors())
+            return badRequest(views.html.edit_pages.edit_car_with_user.render(carForm, id));
+
+        Car car = carForm.get();
+
+        car.user = User.finder.byId(id);
+        play.Logger.debug(car.toString());
+        car.save();
+
+        return redirect(routes.Application.getUserCars(id));
     }
 
     public static Result saveCar() {
