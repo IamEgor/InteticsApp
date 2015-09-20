@@ -128,11 +128,10 @@ public class Application extends Controller {
     public static Result postChosenCar() {
 
         Map<String, String[]> values = request().body().asFormUrlEncoded();
-        String[] car = values.get("car");
+        long carId = Long.parseLong(values.get("car")[0]);
+        Logger.info("car - " + carId);
 
-        Logger.info("car - " + car[0]);
-
-        return ok();
+        return redirect(routes.Application.getCarOrders(carId));
     }
 
 }

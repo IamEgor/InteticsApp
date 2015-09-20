@@ -21,7 +21,5 @@
     }
     </tbody>
   </table>
-  <input type="button" id="redir" value="Add new car"
-  onclick="window.location='@routes.OrdersActions.newOrderWithCar(carId)';">
-  <button type="submit">Далее</button>
+  @some_templates.btn("Add new order", routes.OrdersActions.newOrderWithCar(carId).toString(), "btn-success")
 }

@@ -4,7 +4,7 @@
 
   @form(routes.CarsActions.saveCarWithUser(usersId)) {
     @edit_pages.BLANK_edit_car(carForm)
-    @some_templates.ok_cancel_btns(routes.CarsActions.getCars().toString())
+    @some_templates.ok_cancel_btns(routes.Application.getUserCars(usersId).toString())
   }
 
 }

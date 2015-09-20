@@ -1,12 +1,15 @@
 @(userForm: Form[User])
 @import helper._
+
+@implicitField = @{ FieldConstructor(field_constuctors.bootstrap_constractor.f) }
+
 @main("Main page") {
 
     @form(routes.Application.isUserExist()) {
-
+        <h4>Input user name</h4>
         @inputText(userForm("id"), '_label -> "", 'style -> "display : none")
-        @inputText(userForm("firstName"), 'size -> 30, '_label -> "firstName")
-        @inputText(userForm("lastName"), 'size -> 30, '_label -> "lastName")
+        @inputText(userForm("firstName"), 'size -> 30, '_label -> "FirstName")
+        @inputText(userForm("lastName"), 'size -> 30, '_label -> "LastName")
 
         @some_templates.ok_cancel_btns(routes.UsersActions.getUsers().toString())
     }

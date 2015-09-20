@@ -6,19 +6,19 @@
       <thead>
         <tr>
           <td>
-            Выбор авто
+            Pick a car
           </td>
-          <td>make</td>
-          <td>model</td>
-          <td>year</td>
-          <td>status</td>
+          <td>Make</td>
+          <td>Model</td>
+          <td>Year</td>
+          <td>Status</td>
         </tr>
       </thead>
       <tbody>
       @for(car <- cars) {
         <tr>
           <td>
-            <input type="radio" name="car" value="@car.id" id="@car.id"/>
+            <input type="radio" name="car" value="@car.id" id="@car.id" required/>
           </td>
           <td>@car.make</td>
           <td>@car.model</td>
@@ -29,8 +29,7 @@
       }
       </tbody>
     </table>
-    <input type="button" id="redir" value="Add new car"
-    onclick="window.location='@routes.CarsActions.newCarWithUser(usersId)';">
-    <button type="submit">Далее</button>
+    @some_templates.btn("Add new car", routes.CarsActions.newCarWithUser(usersId).toString(), "btn-success")
+    @some_templates.submit_btn()
   }
 }
