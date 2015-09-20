@@ -14,4 +14,6 @@ public abstract class AbstractUser extends Model implements Updatable{
 
     public static Model.Finder<Long, AbstractUser> finder = new Model.Finder<Long, AbstractUser>(Long.class, AbstractUser.class);
 
+    public static Model.Finder<Long, AbstractUser> finder(){return finder;}
+
 }

@@ -7,6 +7,8 @@ GET         /                                 controllers.Application.index()
 POST        /existUserOrNot                   controllers.Application.isUserExist()
 GET         /newUserIfNotExist                controllers.Application.newUser(firstName, lastName : String)
 POST        /saveNewUser                      controllers.Application.saveNewUser()
+#GET         /sss                              controllers.Application.saveNew(ss : models.User)
+
 
 GET         /getUserCars                      controllers.Application.getUserCars()
 POST        /chosenCar                        controllers.Application.postChosenCar()

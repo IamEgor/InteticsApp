@@ -4,6 +4,7 @@ import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.twirl.api.Html;
 
 import java.util.List;
 
@@ -11,6 +12,9 @@ import java.util.List;
  * Created by Egor on 17.09.2015.
  */
 public class UsersActions extends Controller{
+
+    private static final Class clazz = User.class;
+    private static final Html s = views.html.edit_pages.edit_user.render(Form.form(User.class));
 
     public static Result getUsers() {
 
@@ -20,13 +24,13 @@ public class UsersActions extends Controller{
 
     public static Result newUser() {
 
-        Form<User> userForm = Form.form(User.class);
+        Form<User> userForm = Form.form(clazz);
         return ok(views.html.edit_pages.edit_user.render(userForm));
     }
 
     public static Result saveUser() {
 
-        Form<User> userForm = Form.form(User.class).bindFromRequest();
+        Form<User> userForm = Form.form(clazz).bindFromRequest();
 
         if(userForm.hasErrors())
             return badRequest(views.html.edit_pages.edit_user.render(userForm));
@@ -48,7 +52,7 @@ public class UsersActions extends Controller{
     public static Result editUser(Long id) {
 
         User row = User.finder.byId(id);
-        Form<User> userForm = Form.form(User.class).fill(row);
+        Form<User> userForm = Form.form(clazz).fill(row);
         return ok(views.html.edit_pages.edit_user.render(userForm));
     }
 

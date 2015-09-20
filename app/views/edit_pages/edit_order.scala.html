@@ -3,16 +3,8 @@
 @main("Create new order") {
 
     @form(routes.OrdersActions.saveOrder()) {
-
-        @inputText(orderForm("id"), '_label -> "", 'style -> "display : none")
-        @inputDate(orderForm("date"), 'size -> 30, '_label -> "date")
-        @inputText(orderForm("amount"), 'size -> 30, '_label -> "amount")
-        @select(orderForm("vin"), options(Orders.options()))
-
-
-
-        <input type="submit" value="Подтвердить" name="confirm"/>
-        <input type="button" value="Отмена" name="cancel" onclick="window.location='/orders';"/>
+        @edit_pages.BLANK_edit_order(orderForm)
+        @some_templates.ok_cancel_btns(routes.OrdersActions.getOrders().toString())
     }
 
 }

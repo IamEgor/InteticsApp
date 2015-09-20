@@ -23,7 +23,10 @@ public class Application extends Controller {
         return ok(views.html.edit_unreg_user.render(userForm));
     }
 
+    public static Result saveNew(User ss) {
 
+        return ok();
+    }
     public static Result isUserExist() {
 
         Map<String, String[]> values = request().body().asFormUrlEncoded();

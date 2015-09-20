@@ -3,16 +3,8 @@
 @main("Create new car") {
 
     @form(routes.CarsActions.saveCar()) {
-
-        @inputText(carForm("id"), '_label -> "", 'style -> "display : none")
-        @inputText(carForm("make"), 'size -> 30, '_label -> "make")
-        @inputText(carForm("model"), 'size -> 30, '_label -> "model")
-        @inputText(carForm("year"), 'size -> 30, '_label -> "year")
-        @inputText(carForm("vin"), 'size -> 30, '_label -> "vin")
-
-
-        <input type="submit" value="Подтвердить" name="confirm"/>
-        <input type="button" value="Отмена" name="cancel" onclick="window.location='/cars';"/>
+        @edit_pages.BLANK_edit_car(carForm)
+        @some_templates.ok_cancel_btns(routes.CarsActions.getCars().toString())
     }
 
 }
