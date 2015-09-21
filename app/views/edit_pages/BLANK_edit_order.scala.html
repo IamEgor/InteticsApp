@@ -1,0 +1,11 @@
+@(orderForm: Form[Orders])
+@import helper._
+
+@implicitField = @{
+    FieldConstructor(field_constuctors.bootstrap_constractor.f)
+}
+
+@inputText(orderForm("id"), '_label -> "", 'style -> "display : none")
+@inputDate(orderForm("date"), 'size -> 30, '_label -> "Date")
+@inputText(orderForm("amount"), 'size -> 30, '_label -> "Amount")
+@select(orderForm("status"), options(Orders.options()))

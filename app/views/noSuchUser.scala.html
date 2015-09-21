@@ -1,0 +1,12 @@
+@*(userForm : Form[_ <: models.AbstractUser], str : String)*@
+@(userForm: Form[User])
+@import helper._
+@main("List of fields") {
+
+    <h4>There's no such User. Please, create the new one</h4>
+
+    @form(routes.Application.saveNewUser()) {
+        @edit_pages.BLANK_edit_user(userForm)
+        @some_templates.ok_cancel_btns(routes.Application.getUserCars(-1).toString())
+    }
+}

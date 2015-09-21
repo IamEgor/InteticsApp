@@ -1,0 +1,14 @@
+@(userForm: Form[User])
+    @import helper._
+
+    @implicitField = @{
+        FieldConstructor(field_constuctors.bootstrap_constractor.f)
+    }
+
+    @inputText(userForm("id"), '_label -> "", 'style -> "display : none")
+    @inputText(userForm("firstName"), 'size -> 30, '_label -> "FirstName")
+    @inputText(userForm("lastName"), 'size -> 30, '_label -> "LastName")
+    @inputDate(userForm("birthDate"), 'size -> 30, '_label -> "BirthDate")
+    @inputText(userForm("address"), 'size -> 30, '_label -> "Address")
+    @inputText(userForm("phone"), 'size -> 30, '_label -> "Phone")
+    @inputText(userForm("email"), 'size -> 30, '_label -> "Email")

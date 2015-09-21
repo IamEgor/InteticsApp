@@ -1,0 +1,12 @@
+@(carForm: Form[Car])
+@import helper._
+
+@implicitField = @{
+    FieldConstructor(field_constuctors.bootstrap_constractor.f)
+}
+
+@inputText(carForm("id"), '_label -> "", 'style -> "display : none")
+@inputText(carForm("make"), 'size -> 30, '_label -> "Make")
+@inputText(carForm("model"), 'size -> 30, '_label -> "Model")
+@inputText(carForm("year"), 'size -> 30, '_label -> "Year")
+@inputText(carForm("status"), 'size -> 30, '_label -> "Vin")
