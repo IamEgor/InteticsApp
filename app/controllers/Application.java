@@ -3,13 +3,11 @@ package controllers;
 import models.Car;
 import models.Orders;
 import models.User;
-import play.Routes;
-import play.data.DynamicForm;
-import play.data.Form;
-import play.mvc.*;
 import play.Logger;
-
-import views.html.*;
+import play.Routes;
+import play.data.Form;
+import play.mvc.Controller;
+import play.mvc.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +48,7 @@ public class Application extends Controller {
         for(Car car : cars)
             Logger.debug(car.toString());}
 
-        return ok(views.html.ifCarExist.render(cars, usersId));
+        return ok(views.html.getUserCars.render(cars, usersId));
     }
 
 
@@ -63,7 +61,7 @@ public class Application extends Controller {
             for(Orders order : orders)
                 Logger.debug(order.toString());}
 
-        return ok(views.html.ifOrderExist.render(orders, carId));
+        return ok(views.html.getCarOrders.render(orders, carId));
     }
 
     public static Result javascriptRoutes() {
