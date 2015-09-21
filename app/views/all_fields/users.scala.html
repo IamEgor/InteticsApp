@@ -1,23 +1,20 @@
 @(users: List[User])
 @import helper._
 @main("List of users") {
-  <input type="submit" id="redir" value="Add field"
-  onclick="window.location='/users/new';">
-
-  <table>
+  <table class="table">
     <thead>
       <tr>
-        <td>id</td>
-        <td>firstName</td>
-        <td>lastName</td>
-        <td>birthDate</td>
-        <td>address</td>
-        <td>phone</td>
-        <td>email</td>
-        <td>  delete  </td>
-        <td>  edit  </td>
-        <td>  add car  </td>
-        <td>  show cars  </td>
+        <td>Id</td>
+        <td>FirstName</td>
+        <td>LastName</td>
+        <td>BirthDate</td>
+        <td>Address</td>
+        <td>Phone</td>
+        <td>Email</td>
+        <td>Delete</td>
+        <td>Edit</td>
+        <td>Add Car</td>
+        <td>Show Cars</td>
       </tr>
     </thead>
     <tbody>
@@ -31,24 +28,23 @@
         <td>@user.phone</td>
         <td>@user.email</td>
         <td>
-          <a href="@routes.UsersActions.deleteUser(user.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
+          @some_templates.btn_with_confirm("Delete", routes.UsersActions.deleteUser(user.id).toString(), "btn-danger", User.hasSubfields(user.id))
         </td>
 
         <td>
-          <a href="@routes.UsersActions.editUser(user.id)"><i>edit</i></a>
+          @some_templates.btn("Edit", routes.UsersActions.editUser(user.id).toString(), "btn-warning")
         </td>
 
         <td>
-          <a href="@routes.CarsActions.newCarWithUser(user.id)"><i>add car</i></a>
+          @some_templates.btn("Add", routes.CarsActions.newCarWithUser(user.id).toString(), "btn-info")
         </td>
         
         <td>
-          <a href="@routes.Application.getUserCars(user.id)"><i>add car</i></a>
+          @some_templates.btn("Show", routes.Application.getUserCars(user.id).toString(), "btn-default")
         </td>
       </tr>
     }
     </tbody>
   </table>
-
-  <a href="@routes.UsersActions.newUser()">Create new</a>
+  @some_templates.btn("Create new User", routes.UsersActions.newUser().toString(), "btn-success")
 }

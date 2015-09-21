@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Egor on 16.09.2015.
  */
 @Entity
-public class User extends AbstractUser {
+public class User extends Model implements Updatable {
 
     @Id
     @GeneratedValue
@@ -30,14 +30,14 @@ public class User extends AbstractUser {
     @Required
     public String address;
 
-    public int phone;
+    public Long phone;
 
     @Email
     public String email;
 
     public static Model.Finder<Long, User> finder = new Model.Finder<Long, User>(Long.class, User.class);
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "user")
     public List<Car> carsList = new ArrayList<Car>();
 
 
@@ -71,18 +71,30 @@ public class User extends AbstractUser {
 
         long id = -1;
 
-        List<User> tasks = finder.where()
+        List<User> users = finder.where()
                 .ilike("firstName", "%" + firstName + "%")
                 .ilike("lastName", "%" + lastName + "%")
                 .findList();
 
-        if(tasks != null)
-            if(tasks.size() > 0)
-                id = tasks.get(0).id;
+        if(users != null)
+            if(users.size() > 0)
+                id = users.get(0).id;
 
         return id;
     }
 
+    public static boolean hasSubfields(long userId){
+
+        List<Car> cars = finder.byId(userId).carsList;
+
+        if(cars == null)
+            return false;
+        else
+        if(cars.size() > 0)
+            return true;
+        else
+            return false;
+    }
     @Override
     public void updateFields(Model model) {
 

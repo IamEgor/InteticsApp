@@ -6,11 +6,14 @@
 @main("Main page") {
 
     @form(routes.Application.isUserExist()) {
-        <h4>Input user name</h4>
+        <h1>Input user name</h1>
         @inputText(userForm("id"), '_label -> "", 'style -> "display : none")
+        @*
         @inputText(userForm("firstName"), 'size -> 30, '_label -> "FirstName")
         @inputText(userForm("lastName"), 'size -> 30, '_label -> "LastName")
-
+        *@
+        @some_templates.input_with_required("firstName", "FirstName")
+        @some_templates.input_with_required("lastName", "LastName")
         @some_templates.ok_cancel_btns(routes.UsersActions.getUsers().toString())
     }
 

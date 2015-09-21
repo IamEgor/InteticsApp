@@ -1,11 +1,12 @@
 @(carForm: Form[Car])
 @import helper._
-@main("Create new car") {
 
+@main("Create new car") {
     @form(routes.CarsActions.saveCar()) {
         @edit_pages.BLANK_edit_car(carForm)
-        @some_templates.ok_cancel_btns(routes.CarsActions.getCars().toString())
-
+        @*some_templates.ok_cancel_btns(routes.CarsActions.getCars().toString())*@
+        @some_templates.submit_btn()
+        @some_templates.btn_prev_page()
     }
 
 }

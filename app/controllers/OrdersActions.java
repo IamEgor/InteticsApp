@@ -1,5 +1,7 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Update;
 import models.Car;
 import models.Orders;
 import play.data.Form;
@@ -66,7 +68,9 @@ public class OrdersActions extends Controller {
 
         order.save();
 
-        return redirect(routes.OrdersActions.getOrders());
+        long carId = Orders.finder.byId(order.id).car.id;
+        return redirect(routes.Application.getCarOrders(carId));
+
     }
 
     public static Result editOrder(Long id) {
@@ -76,9 +80,15 @@ public class OrdersActions extends Controller {
         return ok(views.html.edit_pages.edit_order.render(orderForm));
     }
 
-    public static Result deleteOrder(Long id) {
-        Orders.finder.byId(id).delete();
-        return redirect(routes.OrdersActions.getOrders());
+    public static Result deleteOrder(Long orderId) {
+
+        long carId = Orders.finder.byId(orderId).car.id;
+
+        Update<Car> upd = Ebean.createUpdate(Car.class, "DELETE Orders WHERE id=:id");
+        upd.set("id", orderId.toString());
+        upd.execute();
+
+        return redirect(routes.Application.getCarOrders(carId));
     }
 
 }

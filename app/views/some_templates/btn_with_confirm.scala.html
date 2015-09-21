@@ -1,0 +1,13 @@
+@(label : String, redirTo : String, style : String, disable : Boolean)
+@if(disable.equals(true)){
+  <input type="button" value="@label" name="delete" class="@style" onclick="alertFunc()">
+}else{
+  <a href="@redirTo" onclick="return confirm('Delete field?')" >
+    <input type="button" value="@label" name="delete" class="@style">
+  </a>
+}
+<script>
+  function alertFunc(){
+    alert("This record can not be deleted, cause of existing subfields")
+  }
+</script>

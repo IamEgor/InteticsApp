@@ -50,7 +50,9 @@ public class Orders extends Model implements Updatable{
                 " amount = " + amount +
                 " status = " + status;
     }
-
+    public static Long getParentId(Long childId){
+        return Orders.finder.byId(childId).car.id;
+    }
     public static Map<String, String> options(){
         LinkedHashMap<String, String> vals = new LinkedHashMap<String, String>();
         for (ContactType cType: ContactType.values()) {

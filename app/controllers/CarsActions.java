@@ -1,5 +1,7 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Update;
 import models.Car;
 import models.User;
 import play.data.Form;
@@ -7,7 +9,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by Egor on 17.09.2015.
@@ -26,28 +27,28 @@ public class CarsActions extends Controller {
         return ok(views.html.edit_pages.edit_car.render(carForm));
     }
 
-    public static Result newCarWithUser(long id) {
+    public static Result newCarWithUser(long usersId) {
 
         Form<Car> carForm = Form.form(Car.class);
-        return ok(views.html.edit_pages.edit_car_with_user.render(carForm, id));
+        return ok(views.html.edit_pages.edit_car_with_user.render(carForm, usersId));
     }
 
-    public static Result saveCarWithUser(long id) {
+    public static Result saveCarWithUser(long usersId) {
 
         Form<Car> carForm = Form.form(Car.class).bindFromRequest();
 
-
+        play.Logger.debug(carForm.errorsAsJson().textValue());
 
         if(carForm.hasErrors())
-            return badRequest(views.html.edit_pages.edit_car_with_user.render(carForm, id));
+            return badRequest(views.html.edit_pages.edit_car_with_user.render(carForm, usersId));
 
         Car car = carForm.get();
 
-        car.user = User.finder.byId(id);
+        car.user = User.finder.byId(usersId);
         play.Logger.debug(car.toString());
         car.save();
 
-        return redirect(routes.Application.getUserCars(id));
+        return redirect(routes.Application.getUserCars(usersId));
     }
 
     public static Result saveCar() {
@@ -67,19 +68,26 @@ public class CarsActions extends Controller {
 
         car.save();
 
-        return redirect(routes.CarsActions.getCars());
+        //return redirect(routes.CarsActions.getCars());
+        return redirect(routes.Application.getUserCars(car.user.id));
     }
 
-    public static Result editCar(Long id) {
+    public static Result editCar(Long carId) {
 
-        Car car = Car.finder.byId(id);
+        Car car = Car.finder.byId(carId);
         Form<Car> carForm = Form.form(Car.class).fill(car);
         return ok(views.html.edit_pages.edit_car.render(carForm));
     }
 
-    public static Result deleteCar(Long id) {
-        Car.finder.byId(id).delete();
-        return redirect(routes.CarsActions.getCars());
+    public static Result deleteCar(Long carId) {
+
+        long userId = Car.finder.byId(carId).user.id;
+
+        Update<Car> upd = Ebean.createUpdate(Car.class, "DELETE Car WHERE id=:id");
+        upd.set("id", carId.toString());
+        upd.execute();
+
+        return redirect(routes.Application.getUserCars(userId));
     }
 
 }

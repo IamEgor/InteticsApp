@@ -1,13 +1,15 @@
 @(orders: List[Orders], carId :Long)
 @import helper._
 @main("List of orders") {
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <td>Id</td>
         <td>Date</td>
         <td>Amount</td>
         <td>Status</td>
+        <td>Delete</td>
+        <td>Edit</td>
       </tr>
     </thead>
     <tbody>
@@ -17,9 +19,17 @@
         <td>@order.date</td>
         <td>@order.amount</td>
         <td>@order.status</td>
+        <td>
+          @some_templates.btn_with_confirm("Delete", routes.OrdersActions.deleteOrder(order.id).toString(), "btn-danger", false)
+        </td>
+
+        <td>
+          @some_templates.btn("Edit", routes.OrdersActions.editOrder(order.id).toString(), "btn-warning")
+        </td>
       </tr>
     }
     </tbody>
   </table>
   @some_templates.btn("Add new order", routes.OrdersActions.newOrderWithCar(carId).toString(), "btn-success")
+  @some_templates.btn("Cars", routes.Application.getUserCars(Car.getParentId(carId)).toString(), "btn-default")
 }

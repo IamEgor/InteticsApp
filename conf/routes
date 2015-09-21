@@ -5,7 +5,7 @@
 # Home page
 GET         /                                             controllers.Application.index()
 POST        /existUserOrNot                               controllers.Application.isUserExist()
-GET         /newUserIfNotExist                            controllers.Application.newUser(firstName, lastName : String)
+GET         /newUserIfNotExist/:firstName/:lastName       controllers.Application.newUser(firstName, lastName : String)
 POST        /saveNewUser                                  controllers.Application.saveNewUser()
 GET         /getCarOrders/:carId                          controllers.Application.getCarOrders(carId : Long)
 

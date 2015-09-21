@@ -2,16 +2,21 @@
 @import helper._
 @main("List of cars") {
   @form(routes.Application.postChosenCar()) {
-    <table>
+    <table class="table">
       <thead>
         <tr>
           <td>
             Pick a car
           </td>
+          <td>Id</td>
           <td>Make</td>
           <td>Model</td>
           <td>Year</td>
-          <td>Status</td>
+          <td>VIN</td>
+          <td>Delete</td>
+          <td>Edit</td>
+          <td>Add Order</td>
+          <td>Show Orders</td>
         </tr>
       </thead>
       <tbody>
@@ -20,16 +25,32 @@
           <td>
             <input type="radio" name="car" value="@car.id" id="@car.id" required/>
           </td>
+          <td>@car.id</td>
           <td>@car.make</td>
           <td>@car.model</td>
           <td>@car.year</td>
-          <td>@car.vin</td>
+          <td>@car.status</td>
+          <td>
+            @some_templates.btn_with_confirm("Delete", routes.CarsActions.deleteCar(car.id).toString(), "btn-danger", Car.hasSubfields(car.id))
+          </td>
 
+          <td>
+            @some_templates.btn("Edit", routes.CarsActions.editCar(car.id).toString(), "btn-warning")
+          </td>
+
+          <td>
+            @some_templates.btn("Add", routes.OrdersActions.newOrderWithCar(car.id).toString(), "btn-info")
+          </td>
+
+          <td>
+            @some_templates.btn("Show", routes.Application.getCarOrders(car.id).toString(), "btn-default")
+          </td>
         </tr>
       }
       </tbody>
     </table>
     @some_templates.btn("Add new car", routes.CarsActions.newCarWithUser(usersId).toString(), "btn-success")
-    @some_templates.submit_btn()
+    @some_templates.submit_btn_active(cars.size == 0)
+
   }
 }

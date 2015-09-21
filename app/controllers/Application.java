@@ -42,7 +42,7 @@ public class Application extends Controller {
 
 
     public static Result getUserCars(long usersId) {
-        Logger.debug("getUserCars - " + usersId);
+        Logger.debug("getUserCars() - usersId = " + usersId);
         List<Car> cars = new ArrayList<>();
         if(usersId != -1){
             cars = User.finder.byId(usersId).carsList;
@@ -95,6 +95,8 @@ public class Application extends Controller {
 
     public static Result isUserExist() {
 
+        Form<User> userForm = Form.form(User.class).bindFromRequest();
+
         Map<String, String[]> values = request().body().asFormUrlEncoded();
         String firstName = values.get("firstName")[0];
         String lastName = values.get("lastName")[0];
@@ -120,8 +122,8 @@ public class Application extends Controller {
         else {
             User user = userForm.get();
             user.save();
-
-            return redirect(routes.Application.getUserCars(-1));
+            Logger.debug(" user.id - saveNewUser() = " + user.id);
+            return redirect(routes.Application.getUserCars(user.id));
         }
     }
 

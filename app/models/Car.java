@@ -1,13 +1,10 @@
 package models;
 
-import play.data.validation.Constraints;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,7 +27,7 @@ public class Car extends Model implements Updatable{
     public int year;
 
     @Required
-    public int vin;
+    public Long status;
 
     public static Model.Finder<Long, Car> finder = new Model.Finder<Long, Car>(Long.class, Car.class);
 
@@ -49,7 +46,7 @@ public class Car extends Model implements Updatable{
         this.make = oldCar.make;
         this.model = oldCar.model;
         this.year = oldCar.year;
-        this.vin = oldCar.vin;
+        this.status = oldCar.status;
     }
 
     @Override
@@ -59,6 +56,23 @@ public class Car extends Model implements Updatable{
                 " make = " + make +
                 " model = " + model +
                 " year = " + year +
-                " status = " + vin;
+                " status = " + status;
+    }
+
+    public static Long getParentId(Long childId){
+        return Car.finder.byId(childId).user.id;
+    }
+
+    public static boolean hasSubfields(long carId){
+
+        List<Orders> orders = finder.byId(carId).ordersList;
+
+        if(orders == null)
+            return false;
+        else
+        if(orders.size() > 0)
+            return true;
+        else
+            return false;
     }
 }

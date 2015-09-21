@@ -8,7 +8,7 @@ create table car (
   make                      varchar(255),
   model                     varchar(255),
   year                      integer,
-  vin                       integer,
+  status                    bigint,
   user_id                   bigint,
   unreg_user_id             bigint,
   constraint pk_car primary key (id))
@@ -37,7 +37,7 @@ create table user (
   last_name                 varchar(255),
   birth_date                varchar(255),
   address                   varchar(255),
-  phone                     integer,
+  phone                     bigint,
   email                     varchar(255),
   constraint pk_user primary key (id))
 ;

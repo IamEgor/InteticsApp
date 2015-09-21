@@ -1,0 +1,6 @@
+@(label : String, redirTo : String, style : String, enabled :Boolean)
+@if(enabled.equals(true)){
+  <input type="button" value="@label" name="cancel" class="@style" onclick="window.location='@redirTo';"/>
+}else{
+  <input type="button" value="@label" name="cancel" class="@style" onclick="window.location='@redirTo';" disabled/>
+}

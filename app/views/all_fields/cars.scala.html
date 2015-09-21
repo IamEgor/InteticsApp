@@ -3,7 +3,7 @@
 @main("List of cars") {
   <input type="submit" id="redir" value="Add field"
   onclick="window.location='@routes.CarsActions.newCar()';">
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <td>id</td>
@@ -22,7 +22,7 @@
         <td>@car.make</td>
         <td>@car.model</td>
         <td>@car.year</td>
-        <td>@car.vin</td>
+        <td>@car.status</td>
         <td>
           <a href="@routes.CarsActions.deleteCar(car.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
         </td>
