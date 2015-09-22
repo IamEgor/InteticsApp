@@ -2,7 +2,7 @@ package controllers;
 
 import models.Car;
 import models.Orders;
-import models.User;
+import models.Users;
 import play.Logger;
 import play.Routes;
 import play.data.Form;
@@ -18,7 +18,7 @@ public class Application extends Controller {
     public static Result index() {
         //return ok(index.render("Your new application is ready."));
 
-        Form<User> userForm = Form.form(User.class);
+        Form<Users> userForm = Form.form(Users.class);
         return ok(views.html.first_page.render(userForm));
     }
 
@@ -27,11 +27,11 @@ public class Application extends Controller {
     public static Result newUser(String firstName, String lastName) {
 
 
-        User user = new User();
+        Users user = new Users();
         user.firstName = firstName;
         user.lastName = lastName;
 
-        Form<User> userForm = Form.form(User.class).fill(user);
+        Form<Users> userForm = Form.form(Users.class).fill(user);
 
         return ok(views.html.noSuchUser.render(userForm));
     }
@@ -43,7 +43,7 @@ public class Application extends Controller {
         Logger.debug("getUserCars() - usersId = " + usersId);
         List<Car> cars = new ArrayList<>();
         if(usersId != -1){
-            cars = User.finder.byId(usersId).carsList;
+            cars = Users.finder.byId(usersId).carsList;
 
         for(Car car : cars)
             Logger.debug(car.toString());}
@@ -93,13 +93,13 @@ public class Application extends Controller {
 
     public static Result isUserExist() {
 
-        Form<User> userForm = Form.form(User.class).bindFromRequest();
+        Form<Users> userForm = Form.form(Users.class).bindFromRequest();
 
         Map<String, String[]> values = request().body().asFormUrlEncoded();
         String firstName = values.get("firstName")[0];
         String lastName = values.get("lastName")[0];
 
-        long usersId = User.isUserExist(firstName, lastName);
+        long usersId = Users.isUserExist(firstName, lastName);
 
         if (usersId == -1) {
             return redirect(routes.Application.newUser(firstName, lastName));
@@ -113,12 +113,12 @@ public class Application extends Controller {
 
     public static Result saveNewUser(){
 
-        Form<User> userForm = Form.form(User.class).bindFromRequest();
+        Form<Users> userForm = Form.form(Users.class).bindFromRequest();
 
         if(userForm.hasErrors())
             return badRequest(views.html.noSuchUser.render(userForm));
         else {
-            User user = userForm.get();
+            Users user = userForm.get();
             user.save();
             Logger.debug(" user.id - saveNewUser() = " + user.id);
             return redirect(routes.Application.getUserCars(user.id));

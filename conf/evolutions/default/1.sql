@@ -31,7 +31,7 @@ create table unreg_user (
   constraint pk_unreg_user primary key (id))
 ;
 
-create table user (
+create table users (
   id                        bigint not null,
   first_name                varchar(255),
   last_name                 varchar(255),
@@ -39,7 +39,7 @@ create table user (
   address                   varchar(255),
   phone                     bigint,
   email                     varchar(255),
-  constraint pk_user primary key (id))
+  constraint pk_users primary key (id))
 ;
 
 create sequence car_seq;
@@ -48,30 +48,26 @@ create sequence orders_seq;
 
 create sequence unreg_user_seq;
 
-create sequence user_seq;
+create sequence users_seq;
 
-alter table car add constraint fk_car_user_1 foreign key (user_id) references user (id) on delete restrict on update restrict;
+alter table car add constraint fk_car_user_1 foreign key (user_id) references users (id);
 create index ix_car_user_1 on car (user_id);
-alter table car add constraint fk_car_unregUser_2 foreign key (unreg_user_id) references unreg_user (id) on delete restrict on update restrict;
+alter table car add constraint fk_car_unregUser_2 foreign key (unreg_user_id) references unreg_user (id);
 create index ix_car_unregUser_2 on car (unreg_user_id);
-alter table orders add constraint fk_orders_car_3 foreign key (car_id) references car (id) on delete restrict on update restrict;
+alter table orders add constraint fk_orders_car_3 foreign key (car_id) references car (id);
 create index ix_orders_car_3 on orders (car_id);
 
 
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+drop table if exists car cascade;
 
-drop table if exists car;
+drop table if exists orders cascade;
 
-drop table if exists orders;
+drop table if exists unreg_user cascade;
 
-drop table if exists unreg_user;
-
-drop table if exists user;
-
-SET REFERENTIAL_INTEGRITY TRUE;
+drop table if exists users cascade;
 
 drop sequence if exists car_seq;
 
@@ -79,5 +75,5 @@ drop sequence if exists orders_seq;
 
 drop sequence if exists unreg_user_seq;
 
-drop sequence if exists user_seq;
+drop sequence if exists users_seq;
 

@@ -3,7 +3,7 @@ package controllers;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Update;
 import models.Car;
-import models.User;
+import models.Users;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -44,7 +44,7 @@ public class CarsActions extends Controller {
 
         Car car = carForm.get();
 
-        car.user = User.finder.byId(usersId);
+        car.user = Users.finder.byId(usersId);
         play.Logger.debug(car.toString());
         car.save();
 

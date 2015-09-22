@@ -1,4 +1,4 @@
-@(users: List[User])
+@(users: List[Users])
 @import helper._
 @main("List of users") {
   <table class="table">
@@ -28,7 +28,7 @@
         <td>@user.phone</td>
         <td>@user.email</td>
         <td>
-          @some_templates.btn_with_confirm("Delete", routes.UsersActions.deleteUser(user.id).toString(), "btn-danger", User.hasSubfields(user.id))
+          @some_templates.btn_with_confirm("Delete", routes.UsersActions.deleteUser(user.id).toString(), "btn-danger", Users.hasSubfields(user.id))
         </td>
 
         <td>
@@ -46,5 +46,5 @@
     }
     </tbody>
   </table>
-  @some_templates.btn("Create new User", routes.UsersActions.newUser().toString(), "btn-success")
+  @some_templates.btn("Create new Users", routes.UsersActions.newUser().toString(), "btn-success")
 }

@@ -32,7 +32,7 @@ public class Car extends Model implements Updatable{
     public static Model.Finder<Long, Car> finder = new Model.Finder<Long, Car>(Long.class, Car.class);
 
     @ManyToOne(cascade = CascadeType.ALL)
-    public User user;
+    public Users user;
     @ManyToOne(cascade = CascadeType.ALL)
     public UnregUser unregUser;
 
